@@ -30,7 +30,7 @@ function getCookie(name, doc) {
  */
 function type_a(id_name, id_proposal) {
   /** examine whether cookie value exists. */
-  var id_value = getCookie(id_name);
+  var id_value = getCookie(id_name, document);
   /** set the cookie value if it has not been set.*/
   if (id_value === null) {
     setCookie(id_name, id_proposal);
@@ -43,7 +43,7 @@ function type_a(id_name, id_proposal) {
       console.log("tracker A: request sent, with response: " + xhttp.responseText);
     }
   };
-  var tracker_receiver = "http://trackera.com/a/receiver";
+  var tracker_receiver = "http://trackera.com/listenera";
   xhttp.open("GET", constructTrackerRequest(id_value, tracker_receiver), true);
   xhttp.send();
 }

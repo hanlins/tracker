@@ -38,7 +38,7 @@ func TrackerAHandler(w http.ResponseWriter, r *http.Request) {
 	script := mux.Vars(r)["script"]
 	w.Write(script_file)
 	http.ServeFile(w, r, "../trackera/"+script+".js")
-	w.Write([]byte("type_a(\"" + cookie_name + "\", " + id + ");"))
+	w.Write([]byte("type_a(\"" + cookie_name + "\", " + "\"" + id + "\"" + ");"))
 }
 
 /**
