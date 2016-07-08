@@ -2,12 +2,11 @@
  * @file trackera.go
  * @brief A simple implementation of type - C tracker.
  * @author Hanlin Shi
- * @version 0.1.0
+ * @version 0.1.1
  */
 package main
 
 import (
-	"fmt"
 	"github.com/gorilla/mux"
 	"net/http"
 )
@@ -24,38 +23,40 @@ var idc_max = 0
  *  party become first-party (redirect, or popup) to bypass blocking for third-
  *  party cookies. It will simply serve a page. In the page, it will
  *  1). Check whether the id is set.
- *  2). If not set, transfer control to new page with first-class identity and
- *      set id in cookie.
- *  3). Track the browser user using tracker-owned cookie set in first-party.
+ *  2). If not set, server a file to set the cookie.
+ *  3). If set, serve the correct advertisement content.
  *
  * @param w HTTP response.
  * @param r HTTP request.
  * @return Void.
  */
-func TrackerCHandler(w http.ResponseWriter, r *http.Request) {
-	// check whether cookie has been set
+func TrackerCHtmlHandler(w http.ResponseWriter, r *http.Request) {
 	id := ""
 	cookie_name := "IDC"
+	referer_url := r.Header.Get("Referer")
 	if CookieExists(r, cookie_name) {
 		id = GetCookie(r, cookie_name)
+		// record event
+		RecordRefer(id, referer_url)
+		file := mux.Vars(r)["file"]
+		http.ServeFile(w, r, "../trackerc/"+file+".html")
 	} else {
-		// set cookie
-		id = GenerateID(&idb_max)
-		SetCookie(w, cookie_name, id)
+		// serve a popup page that can set cookie
+		file := "set"
+		http.ServeFile(w, r, "../trackerc/"+file+".html")
 	}
-	// get referrer header
-	referer_url := r.Header.Get("Referer")
-	// record event
-	if referer_url != "" {
-		err := RecordRefer(id, referer_url)
-		if err != nil {
-			fmt.Println("referer url record error")
-			return
-		}
-	}
-	// serve the file
-	file := mux.Vars(r)["file"]
-	http.ServeFile(w, r, "../trackerc/"+file)
+}
+
+/**
+ * @brief Serve script files for type - C tracker.
+ *
+ * @param w HTTP response.
+ * @param r HTTP request.
+ * @return Void.
+ */
+func TrackerCScriptHandler(w http.ResponseWriter, r *http.Request) {
+	script := mux.Vars(r)["script"]
+	http.ServeFile(w, r, "../trackerc/"+script+".js")
 }
 
 /**

@@ -7,38 +7,21 @@
  */
 
 /**
- * @description This function returns the cookie value with its name.
- * @param name name of the cookie.
- * @param d document (from child).
- * @return cookie value.
- */
-function getCookie(name, cookie) {
-  var value = "; " + cookie;
-  var parts = value.split("; " + name + "=");
-  if (parts.length == 2) return parts.pop().split(";").shift();
-}
-
-/**
  * @description This function set cookie in the first - party page, it will
  *              1). examine whether the cookie has already been set.
  *              2). set a new id in first-party popup if has not been set, then
  *                  reload the page.
  * @param id_name The identifier's name stored in the cookie.
  * @param set_cookie_url The url that open in popup and set cookie for tracker.
+ * @param real_page The real content we want to display.
  * @return Void.
  */
-function type_c(id_name, set_cookie_url) {
-  /** examine whether cookie value exists. */
-  var id_value = getCookie(id_name, window.document.cookie);
-  /** set the cookie value in popup if it has not been set. */
-  if (id_value === undefined) {
-    console.log("create new cookie");
-    setCookiePopup(set_cookie_url);
-    /** reload the page after 20 second */
-    deferReloadPage(10);
-  } else {
-    console.log("already has cookie: " + id_value);
-  }
+function type_c(id_name, set_cookie_url, real_page) {
+  /** set the cookie value in popup. */
+  console.log("create new cookie");
+  setCookiePopup(set_cookie_url);
+  /** reload the page after 10 second */
+  //deferReloadPage(10, real_page);
 }
 
 /**
@@ -48,17 +31,18 @@ function type_c(id_name, set_cookie_url) {
  * @return Void.
  */
 function setCookiePopup(set_cookie_url) {
-  (window.open(set_cookie_url, '_blank')).focus();
+  window.open(set_cookie_url, '_blank');
 }
 
 /**
  * @description Reload the page / iframe after 'delay' seconds.
  * @param delay Waiting time for reloading the page in unit of seconds.
+ * @param real_page The real content we want to display.
  * @return Void.
  */
-function deferReloadPage(delay) {
-  setTimeout(function(){location.reload();}, 1000 * delay);
+function deferReloadPage(delay, real_page) {
+  setTimeout(function(){window.location = real_page;}, 1000 * delay);
 }
 
 /** invoke type - C tracker's script. */
-type_c("IDC", "http://trackerc.com/c/setcookiec");
+type_c("IDC", "http://trackerc.com/c/setcookiec", "http://trackerc.com/c/base.html");
