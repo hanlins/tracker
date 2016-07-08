@@ -71,4 +71,4 @@ function constructTrackerRequest(id, receiver) {
   query += ("id="+id);
   query += ("&referer="+window.location);
   return (receiver + query);
-} 
+}

@@ -44,8 +44,9 @@ func GetCookie(r *http.Request, name string) string {
  */
 func SetCookie(w http.ResponseWriter, name string, val string) {
 	cookie := &http.Cookie{
-		Name:    name,
-		Value:   val,
+		Name:  name,
+		Value: val,
+		//Path:    "/",
 		Expires: time.Now().Add(time.Hour),
 	}
 	http.SetCookie(w, cookie)
