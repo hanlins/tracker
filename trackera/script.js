@@ -31,7 +31,7 @@ function getCookie(name, doc) {
 function type_a(id_name, id_proposal) {
   /** examine whether cookie value exists. */
   var id_value = getCookie(id_name, document);
-  /** set the cookie value if it has not been set.*/
+  /** set the cookie value if it has not been set. */
   if (id_value === undefined) {
     setCookie(id_name, id_proposal);
     id_value = id_proposal;
@@ -54,7 +54,7 @@ function type_a(id_name, id_proposal) {
  * @param id_proposal The proposaled id value to be set.
  */
 function setCookie(id_name, id_proposal) {
-  /** calculate expiration, currently set to 1 hour */
+  /** calculate expiration, currently set to 1 hour. */
   var d = new Date();
   d.setTime(d.getTime() + (60*60*1000));
   var expires = "expires="+ d.toUTCString();

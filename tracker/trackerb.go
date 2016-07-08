@@ -1,13 +1,20 @@
+/**
+ * @file trackera.go
+ * @brief A simple implementation of type - B tracker.
+ * @author Hanlin Shi
+ * @version 0.1.0
+ */
 package main
 
 import (
-	"github.com/gorilla/mux"
-	//"errors"
 	"fmt"
+	"github.com/gorilla/mux"
 	"net/http"
 )
 
-// identifier
+/**
+ * Global variables.
+ */
 var idb_max = 0
 
 /**
@@ -41,7 +48,6 @@ func TrackerBHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
-
 	// serve the file
 	file := mux.Vars(r)["file"]
 	http.ServeFile(w, r, "../trackerb/"+file)

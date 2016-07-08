@@ -1,20 +1,27 @@
+/**
+ * @file trackera.go
+ * @brief A simple implementation of type - A tracker.
+ * @author Hanlin Shi
+ * @version 0.1.0
+ */
 package main
 
 import (
 	"github.com/gorilla/mux"
-	//"errors"
-	//"fmt"
 	"io/ioutil"
 	"net/http"
 	"net/url"
 )
 
-// identifier
+/**
+ * Global variables.
+ */
 var ida_max = 0
 var script_file = []byte("")
 
 /**
  * @brief Initialize tracker A.
+ * @return Void.
  */
 func InitTrackerA() {
 	script_file, _ = ioutil.ReadFile("../trackera/script.js")
