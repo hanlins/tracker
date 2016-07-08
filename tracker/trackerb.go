@@ -1,7 +1,7 @@
 package main
 
 import (
-	//"github.com/gorilla/mux"
+	"github.com/gorilla/mux"
 	//"errors"
 	"fmt"
 	"net/http"
@@ -43,6 +43,6 @@ func TrackerBHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// serve the file
-	//script := mux.Vars(r)["script"]
-	//http.ServeFile(w, r, "../trackera/"+script+".js")
+	file := mux.Vars(r)["file"]
+	http.ServeFile(w, r, "../trackerb/"+file)
 }
