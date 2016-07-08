@@ -80,5 +80,6 @@ func TransferSetCookie(w http.ResponseWriter, cookie_name string) {
 func TrackerCSetCookie(w http.ResponseWriter, r *http.Request) {
 	cookie_name := "IDC"
 	TransferSetCookie(w, cookie_name)
+	http.ServeFile(w, r, "../trackerc/close.html")
 	return
 }

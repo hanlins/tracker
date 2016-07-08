@@ -32,9 +32,12 @@ function type_c(id_name, set_cookie_url) {
   var id_value = getCookie(id_name, window.document.cookie);
   /** set the cookie value in popup if it has not been set. */
   if (id_value === undefined) {
+    console.log("create new cookie");
     setCookiePopup(set_cookie_url);
-    /** reload the page after 5 second */
-    deferReloadPage(5);
+    /** reload the page after 20 second */
+    deferReloadPage(10);
+  } else {
+    console.log("already has cookie: " + id_value);
   }
 }
 
