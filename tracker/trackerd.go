@@ -1,5 +1,5 @@
 /**
- * @file trackera.go
+ * @file trackerd.go
  * @brief A simple implementation of type - D tracker.
  * @author Hanlin Shi
  * @version 0.1.0
@@ -31,7 +31,7 @@ func ListenerDHandler(w http.ResponseWriter, r *http.Request) {
 	m, _ := url.ParseQuery(u.RawQuery)
 	id := m["id"][0]
 	referer := m["referer"][0]
-	RecordRefer(id, referer)
+	RecordRefer("tkd", id, referer)
 }
 
 /**

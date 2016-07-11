@@ -37,7 +37,7 @@ func TrackerCHtmlHandler(w http.ResponseWriter, r *http.Request) {
 	if CookieExists(r, cookie_name) {
 		id = GetCookie(r, cookie_name)
 		// record event
-		RecordRefer(id, referer_url)
+		RecordRefer("tkc", id, referer_url)
 		file := mux.Vars(r)["file"]
 		http.ServeFile(w, r, "../trackerc/"+file+".html")
 	} else {

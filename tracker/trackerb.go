@@ -1,5 +1,5 @@
 /**
- * @file trackera.go
+ * @file trackerb.go
  * @brief A simple implementation of type - B tracker.
  * @author Hanlin Shi
  * @version 0.1.0
@@ -61,7 +61,7 @@ func TrackerBCookieAndRecord(w http.ResponseWriter, r *http.Request,
 	referer_url := r.Header.Get("Referer")
 	// record event
 	if referer_url != "" {
-		err := RecordRefer(id, referer_url)
+		err := RecordRefer("tkb", id, referer_url)
 		if err != nil {
 			fmt.Println("referer url record error")
 			return

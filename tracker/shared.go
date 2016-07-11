@@ -69,11 +69,12 @@ func GenerateID(id_max *int) string {
  *
  *  TODO: use database or logs to store the visit records.
  *
+ * @param tracker Name of the tracker
  * @param id The identifier of the user.
  * @param url The referer url that user just visited.
  * @return Whether there's error.
  */
-func RecordRefer(id string, url string) error {
-	fmt.Println(id + " : " + url)
+func RecordRefer(tracker string, id string, url string) error {
+	fmt.Println(tracker + " : " + id + " : " + url)
 	return nil
 }

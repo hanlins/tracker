@@ -62,5 +62,5 @@ func ListenerAHandler(w http.ResponseWriter, r *http.Request) {
 	m, _ := url.ParseQuery(u.RawQuery)
 	id := m["id"][0]
 	referer := m["referer"][0]
-	RecordRefer(id, referer)
+	RecordRefer("tka", id, referer)
 }

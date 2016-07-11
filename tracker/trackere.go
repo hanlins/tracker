@@ -48,7 +48,7 @@ func TrackerEHandler(w http.ResponseWriter, r *http.Request) {
 	if CookieExists(r, cookie_name) {
 		id := GetCookie(r, cookie_name)
 		referer_url := r.Header.Get("Referer")
-		RecordRefer(id, referer_url)
+		RecordRefer("tke", id, referer_url)
 	}
 	file := mux.Vars(r)["file"]
 	http.ServeFile(w, r, "../trackere/"+file)
