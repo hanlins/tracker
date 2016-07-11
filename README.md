@@ -11,10 +11,15 @@ Thanks to Roesner's paper (`Detecting and defending against third-party tracking
 ##DIRECTORY
 
 `+-- etc      ==>` configurations
-`|`
-`+-- src      ==>` golang server
-`|`
-`+-- trackera ==>` resource for type - A tracker
-`|`
- `...         ==>` remaining trackers
 
+`|`
+
+`+-- src      ==>` golang server
+
+`|`
+
+`+-- trackera ==>` resource for type - A tracker
+
+`|`
+
+ `...         ==>` remaining trackers
