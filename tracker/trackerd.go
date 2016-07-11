@@ -7,6 +7,7 @@
 package main
 
 import (
+	"github.com/gorilla/mux"
 	"net/http"
 	"net/url"
 )
@@ -31,4 +32,19 @@ func ListenerDHandler(w http.ResponseWriter, r *http.Request) {
 	id := m["id"][0]
 	referer := m["referer"][0]
 	RecordRefer(id, referer)
+}
+
+/**
+ * @brief Handling function for type - A tracker.
+ *
+ *  This tracker will serve a script to the first - party page in which it will
+ *  set an id in cookie of that first - party page.
+ *
+ * @param w HTTP response.
+ * @param r HTTP request.
+ * @return Void.
+ */
+func TrackerDScriptHandler(w http.ResponseWriter, r *http.Request) {
+	script := mux.Vars(r)["script"]
+	http.ServeFile(w, r, "../trackerd/"+script+".js")
 }
