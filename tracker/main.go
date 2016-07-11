@@ -26,6 +26,8 @@ func main() {
 	r.HandleFunc("/c/{file:[a-z]+}.html", TrackerCHtmlHandler)
 	r.HandleFunc("/c/{script:[a-z]+}.js", TrackerCScriptHandler)
 
+	r.HandleFunc("/listenerd", ListenerDHandler)
+
 	r.HandleFunc("/e/home", TrackerEHomeHandler)
 	r.HandleFunc("/e/{file}", TrackerEHandler)
 
