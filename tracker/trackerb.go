@@ -28,14 +28,33 @@ var idb_max = 0
  * @return Void.
  */
 func TrackerBHandler(w http.ResponseWriter, r *http.Request) {
+	TrackerBCookieAndRecord(w, r, "IDB", &idb_max)
+	TrackerBCookieAndRecord(w, r, "IDD", &idd_max)
+	// serve the file
+	file := mux.Vars(r)["file"]
+	http.ServeFile(w, r, "../trackerb/"+file)
+}
+
+/**
+ * @brief Handling function for type - B tracker.
+ *
+ *  This tracker will set cookie and record the referer.
+ *
+ * @param w HTTP response.
+ * @param r HTTP request.
+ * @param cookie_name Name of the cookie to be test and set.
+ * @param id_pt Pointer to id counter that used to assign unique id.
+ * @return Void.
+ */
+func TrackerBCookieAndRecord(w http.ResponseWriter, r *http.Request,
+	cookie_name string, id_pt *int) {
 	// check whether cookie has been set
 	id := ""
-	cookie_name := "IDB"
 	if CookieExists(r, cookie_name) {
 		id = GetCookie(r, cookie_name)
 	} else {
 		// set cookie
-		id = GenerateID(&idb_max)
+		id = GenerateID(id_pt)
 		SetCookie(w, cookie_name, id)
 	}
 	// get referrer header
@@ -48,7 +67,4 @@ func TrackerBHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
-	// serve the file
-	file := mux.Vars(r)["file"]
-	http.ServeFile(w, r, "../trackerb/"+file)
 }
