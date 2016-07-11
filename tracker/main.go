@@ -19,10 +19,15 @@ func main() {
 	// tracker handlers goes here
 	r.HandleFunc("/a/{script:[a-z]+}.js", TrackerAHandler)
 	r.HandleFunc("/listenera", ListenerAHandler)
+
 	r.HandleFunc("/b/{file}", TrackerBHandler)
+
 	r.HandleFunc("/c/setcookiec", TrackerCSetCookie)
 	r.HandleFunc("/c/{file:[a-z]+}.html", TrackerCHtmlHandler)
 	r.HandleFunc("/c/{script:[a-z]+}.js", TrackerCScriptHandler)
+
+	r.HandleFunc("/e/home", TrackerEHomeHandler)
+	r.HandleFunc("/e/{file}", TrackerEHandler)
 
 	// Start listening on the given IP address and port
 	http.Handle("/", r)
