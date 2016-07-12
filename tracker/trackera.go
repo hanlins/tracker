@@ -7,6 +7,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/gorilla/mux"
 	"io/ioutil"
 	"net/http"
@@ -62,5 +63,18 @@ func ListenerAHandler(w http.ResponseWriter, r *http.Request) {
 	m, _ := url.ParseQuery(u.RawQuery)
 	id := m["id"][0]
 	referer := m["referer"][0]
+	footprint := m["footprint"][0]
 	RecordRefer("tka", id, referer)
+	MapFootprintId(footprint, id)
+}
+
+/**
+ * @brief Map identifier and footprint received, used for cross-site identifier
+ *        referencing.
+ * @param footprint Cross-site footprint used for cross-site identifier.
+ * @param id Tracker-owned id for the browser user.
+ * @return Void.
+ */
+func MapFootprintId(footprint string, id string) {
+	fmt.Println(id + " leaves footprint : " + footprint)
 }
