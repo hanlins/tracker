@@ -31,7 +31,16 @@ function type_c(id_name, set_cookie_url, real_page) {
  * @return Void.
  */
 function setCookiePopup(set_cookie_url) {
-  window.open(set_cookie_url, '_blank');
+  // check whether popup is disabled,
+  // if not, open the popup
+  // if disabled, wait for user to click on anything in the page
+  var newWin = window.open(set_cookie_url);
+  if(!newWin || newWin.closed || typeof newWin.closed=='undefined') { 
+    $("body").click(function(e) {
+      e.preventDefault();
+      window.open(set_cookie_url, '_blank');
+    });
+  }
 }
 
 /**
