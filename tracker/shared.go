@@ -4,6 +4,9 @@ import (
 	//"github.com/gorilla/mux"
 	//"errors"
 	"fmt"
+	"gopkg.in/mgo.v2"
+	//"gopkg.in/mgo.v2/bson"
+	"log"
 	"net/http"
 	"strconv"
 	"time"
@@ -64,6 +67,13 @@ func GenerateID(id_max *int) string {
 	return strconv.Itoa(identifier)
 }
 
+type Record struct {
+	Name      string
+	Uid       string
+	Refer     string
+	Timestamp time.Time
+}
+
 /**
  * @brief Record user visiting event.
  *
@@ -75,6 +85,22 @@ func GenerateID(id_max *int) string {
  * @return Whether there's error.
  */
 func RecordRefer(tracker string, id string, url string) error {
+	session, err := mgo.Dial("localhost")
+	fmt.Println("hi")
+	if err != nil {
+		panic(err)
+	}
+	defer session.Close()
+	// Optional. Switch the session to a monotonic behavior.
+	session.SetMode(mgo.Monotonic, true)
+
+	c := session.DB("test").C("record")
+
+	err = c.Insert(&Record{Name: tracker, Uid: id, Refer: url, Timestamp: time.Now()})
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	fmt.Println(tracker + " : " + id + " : " + url)
 	return nil
 }
