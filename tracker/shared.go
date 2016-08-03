@@ -64,7 +64,7 @@ func SetCookie(w http.ResponseWriter, name string, val string) {
 func GenerateID(id_max *int) string {
 	identifier := *id_max
 	*id_max = *id_max + 1
-	return strconv.Itoa(identifier)
+	return "t" + strconv.Itoa(identifier)
 }
 
 type Record struct {
