@@ -8,36 +8,30 @@
 
 /**
  * @description Initialize the local storage module.
- * @return Void.
+ * @param id_name The identifier's name stored in the cookie.
+ * @param id_proposal The proposaled id value, will be used if the cookie has
+ *        not been set.
+ * @return Storage object.
  */
-function init() {
-  if (!store.enabled) {
-    console.log('Local storage is not supported.');
-  } else {
-    console.log('Local storage is supported, module initialization success.');
-  }
-}
-
-/**
- * @description Check whether tracker id exists.
- * @param id_name Name of the tracker id.
- * @return True if exists, false if not.
- */
-function checkTrackerIdExists(id_name) {
-  if (store.get(id_name)) {
-    return true;
-  }
-  return false;
-}
-
-/**
- * @description Set flash cookie id.
- * @param id_name Name of the tracker id.
- * @param id_val Tracker id value.
- * @return Void.
- */
-function setTrackerId(id_name, id_val) {
-  store.set(id_name, id_val);
+function createStorage(id_name, id_proposal) {
+  var newStore = new SwfStore({
+    namespace: "trackerf",
+    swf_url: "//trackerf.com/f/storage.swf",
+    debug: true,
+    onready: function() {
+      // if tracker id doesn't exists, assign a new one
+      if (!newStore.get(id_name)) {
+        newStore.set(id_name, id_proposal);
+        console.log("assign new tracker id: " + id_proposal);
+      } else {
+        console.log(id_name + " id value exists: " + newStore.get(id_name));
+      }
+    },
+    onerror: function(err) {
+      console.error(err.message);
+    }
+  });
+  return newStore;
 }
 
 /**
@@ -48,12 +42,7 @@ function setTrackerId(id_name, id_val) {
  * @return Void.
  */
 function type_f(id_name, id_proposal) {
-  if (!checkTrackerIdExists(id_name)) {
-    console.log("Tracker ID not set yet, get a new one.");
-    setTrackerId(id_name, id_proposal);
-  }
-  console.log("Tracker ID has been set, which is: " + store.get(id_name));
+  // create new store object
+  store = createStorage(id_name, id_proposal);
 }
 
-// initialize the module
-init();
