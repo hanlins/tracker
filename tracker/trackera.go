@@ -18,14 +18,14 @@ import (
  * Global variables.
  */
 var ida_max = 0
-var script_file = []byte("")
+var script_file_A = []byte("")
 
 /**
  * @brief Initialize tracker A.
  * @return Void.
  */
 func InitTrackerA() {
-	script_file, _ = ioutil.ReadFile("../trackera/script.js")
+	script_file_A, _ = ioutil.ReadFile("../trackera/script.js")
 }
 
 /**
@@ -44,7 +44,7 @@ func TrackerAHandler(w http.ResponseWriter, r *http.Request) {
 	id := GenerateID(&ida_max)
 	// serve the file
 	script := mux.Vars(r)["script"]
-	w.Write(script_file)
+	w.Write(script_file_A)
 	http.ServeFile(w, r, "../trackera/"+script+".js")
 	w.Write([]byte("type_a(\"" + cookie_name + "\", " + "\"" + id + "\"" + ");"))
 }

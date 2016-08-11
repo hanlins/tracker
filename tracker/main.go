@@ -32,6 +32,8 @@ func main() {
 	r.HandleFunc("/e/home", TrackerEHomeHandler)
 	r.HandleFunc("/e/{file}", TrackerEHandler)
 
+	r.HandleFunc("/f/{file}", TrackerFHandler)
+
 	// Start listening on the given IP address and port
 	http.Handle("/", r)
 	var httpListenAddr = fmt.Sprintf("%s:%d",

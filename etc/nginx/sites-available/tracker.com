@@ -2,7 +2,7 @@ server {
 	listen 80; 		# ipv4
 	listen [::]:80; 	# ipv6
 
-	server_name trackerA.com trackerB.com trackerC.com trackerD.com trackerE.com; 	# vhost
+	server_name trackerA.com trackerB.com trackerC.com trackerD.com trackerE.com trackerF.com; 	# vhost
 
 	location / {
 		#root /root/mylab/;
