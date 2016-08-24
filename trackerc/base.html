@@ -5,5 +5,25 @@
   <div>
     <h3>This is a simple iframe used by tracker type - C.</h3>
   </div>
+  <script>
+    /**
+     * @description This function returns the cookie value with its name.
+     * @param name name of the cookie.
+     * @param d document (from child).
+     * @return cookie value.
+     */
+    function getCookie(name, doc) {
+      var value = "; " + doc.cookie;
+      var parts = value.split("; " + name + "=");
+      if (parts.length == 2) return parts.pop().split(";").shift();
+    }
+    // check whether tracking id exists
+    var id_name = "IDC";
+    var id_value = getCookie(id_name, document);
+    /** set the cookie value if it has not been set. */
+    if (id_value === undefined) {
+      window.location = "http://trackerc.com/c/set.html";
+    }
+  </script>
 </body>
 </html>

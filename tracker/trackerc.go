@@ -31,20 +31,15 @@ var idc_max = 0
  * @return Void.
  */
 func TrackerCHtmlHandler(w http.ResponseWriter, r *http.Request) {
-	id := ""
 	cookie_name := "IDC"
 	referer_url := r.Header.Get("Referer")
 	if CookieExists(r, cookie_name) {
-		id = GetCookie(r, cookie_name)
 		// record event
+		id := GetCookie(r, cookie_name)
 		RecordRefer("tkc", id, referer_url)
-		file := mux.Vars(r)["file"]
-		http.ServeFile(w, r, "../trackerc/"+file+".html")
-	} else {
-		// serve a popup page that can set cookie
-		file := "set"
-		http.ServeFile(w, r, "../trackerc/"+file+".html")
 	}
+	file := mux.Vars(r)["file"]
+	http.ServeFile(w, r, "../trackerc/"+file+".html")
 }
 
 /**
