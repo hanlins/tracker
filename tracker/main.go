@@ -34,6 +34,9 @@ func main() {
 
 	r.HandleFunc("/f/{file}", TrackerFHandler)
 
+	// handle result request pages for testbed
+	r.HandleFunc("/result/{file}", ResultRequestHandler)
+
 	// Start listening on the given IP address and port
 	http.Handle("/", r)
 	var httpListenAddr = fmt.Sprintf("%s:%d",
@@ -71,4 +74,9 @@ func ListenHandler(w http.ResponseWriter, r *http.Request) {
 
 func TestHandler(w http.ResponseWriter, r *http.Request) {
 	http.ServeFile(w, r, "./test.html")
+}
+
+func ResultRequestHandler(w http.ResponseWriter, r *http.Request) {
+	file := mux.Vars(r)["file"]
+	http.ServeFile(w, r, "../result/"+file)
 }
