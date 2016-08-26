@@ -86,7 +86,6 @@ type Record struct {
  */
 func RecordRefer(tracker string, id string, url string) error {
 	session, err := mgo.Dial("localhost")
-	fmt.Println("hi")
 	if err != nil {
 		panic(err)
 	}
