@@ -43,11 +43,14 @@ func TrackerFHandler(w http.ResponseWriter, r *http.Request) {
 		w.Write(script_file_F)
 		// @TODO This is questionable, it also happens in type - A tracker, check
 		//       and fix it later.
-		http.ServeFile(w, r, "../trackerf/script.js")
+		// http.ServeFile(w, r, "../trackerf/script.js")
+		ServeFileWrapper(w, r, "../trackerf/script.js")
+
 		// execute functions
 		w.Write([]byte("type_f(\"" + "IDF" + "\", " + "\"" + id + "\"" + ");"))
 	} else {
 		// otherwise, serve the flieV first
-		http.ServeFile(w, r, "../trackerf/"+file)
+		// http.ServeFile(w, r, "../trackerf/"+file)
+		ServeFileWrapper(w, r, "../trackerf/"+file)
 	}
 }

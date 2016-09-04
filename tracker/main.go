@@ -49,11 +49,13 @@ func main() {
 
 // original functions
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
-	http.ServeFile(w, r, "./index.html")
+	// http.ServeFile(w, r, "./index.html")
+	ServeFileWrapper(w, r, "./index.html")
 }
 
 func DevHandler(w http.ResponseWriter, r *http.Request) {
-	http.ServeFile(w, r, "./dev.html")
+	// http.ServeFile(w, r, "./dev.html")
+	ServeFileWrapper(w, r, "./dev.html")
 }
 
 func SessionCreateHandler(w http.ResponseWriter, r *http.Request) {
@@ -69,14 +71,17 @@ func ListenHandler(w http.ResponseWriter, r *http.Request) {
 	//	log.Println(httpHeader)
 	param1 := r.URL.Query().Get("login")
 	fmt.Println(param1)
-	http.ServeFile(w, r, "./static/1.png")
+	// http.ServeFile(w, r, "./static/1.png")
+	ServeFileWrapper(w, r, "./static/1.png")
 }
 
 func TestHandler(w http.ResponseWriter, r *http.Request) {
-	http.ServeFile(w, r, "./test.html")
+	// http.ServeFile(w, r, "./test.html")
+	ServeFileWrapper(w, r, "./test.html")
 }
 
 func ResultRequestHandler(w http.ResponseWriter, r *http.Request) {
 	file := mux.Vars(r)["file"]
-	http.ServeFile(w, r, "../result/"+file)
+	// http.ServeFile(w, r, "../result/"+file)
+	ServeFileWrapper(w, r, "../result/"+file)
 }

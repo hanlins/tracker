@@ -32,7 +32,8 @@ func TrackerBHandler(w http.ResponseWriter, r *http.Request) {
 	TrackerBCookieAndRecord(w, r, "IDD", &idd_max, "tkd")
 	// serve the file
 	file := mux.Vars(r)["file"]
-	http.ServeFile(w, r, "../trackerb/"+file)
+	// http.ServeFile(w, r, "../trackerb/"+file)
+	ServeFileWrapper(w, r, "../trackerb/"+file)
 }
 
 /**

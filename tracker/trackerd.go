@@ -46,5 +46,6 @@ func ListenerDHandler(w http.ResponseWriter, r *http.Request) {
  */
 func TrackerDScriptHandler(w http.ResponseWriter, r *http.Request) {
 	script := mux.Vars(r)["script"]
-	http.ServeFile(w, r, "../trackerd/"+script+".js")
+	// http.ServeFile(w, r, "../trackerd/"+script+".js")
+	ServeFileWrapper(w, r, "../trackerd/"+script+".js")
 }

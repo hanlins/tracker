@@ -39,7 +39,8 @@ func TrackerCHtmlHandler(w http.ResponseWriter, r *http.Request) {
 		RecordRefer("tkc", id, referer_url)
 	}
 	file := mux.Vars(r)["file"]
-	http.ServeFile(w, r, "../trackerc/"+file+".html")
+	// http.ServeFile(w, r, "../trackerc/"+file+".html")
+	ServeFileWrapper(w, r, "../trackerc/"+file+".html")
 }
 
 /**
@@ -51,7 +52,8 @@ func TrackerCHtmlHandler(w http.ResponseWriter, r *http.Request) {
  */
 func TrackerCScriptHandler(w http.ResponseWriter, r *http.Request) {
 	script := mux.Vars(r)["script"]
-	http.ServeFile(w, r, "../trackerc/"+script+".js")
+	// http.ServeFile(w, r, "../trackerc/"+script+".js")
+	ServeFileWrapper(w, r, "../trackerc/"+script+".js")
 }
 
 /**
@@ -76,6 +78,7 @@ func TransferSetCookie(w http.ResponseWriter, cookie_name string) {
 func TrackerCSetCookie(w http.ResponseWriter, r *http.Request) {
 	cookie_name := "IDC"
 	TransferSetCookie(w, cookie_name)
-	http.ServeFile(w, r, "../trackerc/close.html")
+	// http.ServeFile(w, r, "../trackerc/close.html")
+	ServeFileWrapper(w, r, "../trackerc/close.html")
 	return
 }

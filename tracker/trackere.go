@@ -35,7 +35,8 @@ func TrackerEHomeHandler(w http.ResponseWriter, r *http.Request) {
 	if !CookieExists(r, cookie_name_master) {
 		SetCookie(w, cookie_name_master, GenerateID(&idd_max))
 	}
-	http.ServeFile(w, r, "../trackere/home.html")
+	// http.ServeFile(w, r, "../trackere/home.html")
+	ServeFileWrapper(w, r, "../trackere/home.html")
 }
 
 /**

@@ -47,10 +47,11 @@ func GetCookie(r *http.Request, name string) string {
  */
 func SetCookie(w http.ResponseWriter, name string, val string) {
 	cookie := &http.Cookie{
-		Name:    name,
-		Value:   val,
-		Path:    "/",
-		Expires: time.Now().Add(time.Hour),
+		Name:     name,
+		Value:    val,
+		Path:     "/",
+		HttpOnly: true,
+		Expires:  time.Now().Add(time.Hour),
 	}
 	http.SetCookie(w, cookie)
 	return
@@ -66,6 +67,17 @@ func SetNoCache(w http.ResponseWriter) {
 	w.Header().Set("Pragma", "no-cache")
 	w.Header().Set("Expires", "0")
 	return
+}
+
+/**
+ * @brief Wrapper for http.ServeFile funciton. Used to interpose http.ServeFile.
+ * @param w Response Writter.
+ * @param r Request reader.
+ * @param filename File to be served.
+ */
+func ServeFileWrapper(w http.ResponseWriter, r *http.Request, filename string) {
+	SetNoCache(w)
+	http.ServeFile(w, r, filename)
 }
 
 /**
