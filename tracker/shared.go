@@ -57,6 +57,18 @@ func SetCookie(w http.ResponseWriter, name string, val string) {
 }
 
 /**
+ * @brief Set Cache-control header, disable browser from caching pages.
+ * @param w HTTP response.
+ * @return Void.
+ */
+func SetNoCache(w http.ResponseWriter) {
+	w.Header().Set("Cache-Control", "no-cache, no-store, must-revalidate")
+	w.Header().Set("Pragma", "no-cache")
+	w.Header().Set("Expires", "0")
+	return
+}
+
+/**
  * @brief Generate ID.
  * @param id_max Recorder for maximum id, used for new id generation.
  * @return ID string.

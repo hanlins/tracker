@@ -7,6 +7,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/gorilla/mux"
 	"net/http"
 )
@@ -25,6 +26,7 @@ var ide_max = 0
  */
 func TrackerEHomeHandler(w http.ResponseWriter, r *http.Request) {
 	cookie_name := "IDE"
+	SetNoCache(w)
 	if !CookieExists(r, cookie_name) {
 		SetCookie(w, cookie_name, GenerateID(&ide_max))
 	}
@@ -45,11 +47,15 @@ func TrackerEHomeHandler(w http.ResponseWriter, r *http.Request) {
  */
 func TrackerEHandler(w http.ResponseWriter, r *http.Request) {
 	cookie_name := "IDE"
+	SetNoCache(w)
 	if CookieExists(r, cookie_name) {
 		id := GetCookie(r, cookie_name)
 		referer_url := r.Header.Get("Referer")
 		RecordRefer("tke", id, referer_url)
+	} else {
+		fmt.Println("don't have cookie")
 	}
+
 	file := mux.Vars(r)["file"]
 	http.ServeFile(w, r, "../trackere/"+file)
 }

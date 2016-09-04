@@ -12,7 +12,7 @@
      * @return cookie value.
      */
     function getCookie(name, doc) {
-      var value = "; " + doc.cookie;
+      var value = ";" + doc.cookie;
       value = value.replace(/\s/g, '');// remove space
       var parts = value.split(";" + name + "=");
       if (parts.length == 2) return parts.pop().split(";").shift();
