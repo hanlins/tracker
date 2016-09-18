@@ -34,6 +34,8 @@ func main() {
 
 	r.HandleFunc("/f/{file}", TrackerFHandler)
 
+	r.HandleFunc("/g/{file}", TrackerGHandler)
+
 	// handle result request pages for testbed
 	r.HandleFunc("/result/{file}", ResultRequestHandler)
 
