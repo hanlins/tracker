@@ -36,6 +36,9 @@ func main() {
 
 	r.HandleFunc("/g/{file}", TrackerGHandler)
 
+	r.HandleFunc("/h/{script:[a-z]+}.js", TrackerHHandler)
+	r.HandleFunc("/listenerh", ListenerHHandler)
+
 	// handle result request pages for testbed
 	r.HandleFunc("/result/{file}", ResultRequestHandler)
 
